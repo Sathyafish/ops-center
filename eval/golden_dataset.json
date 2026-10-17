@@ -1,0 +1,98 @@
+{
+  "version": "1.0",
+  "description": "Golden questions for Ops Center GraphRAG eval and Graph vs Vector comparison",
+  "cases": [
+    {
+      "id": "q01",
+      "question": "PaymentGateway is down — who should Ops contact first?",
+      "preferred_route": "graph",
+      "must_include": ["Alice Chen", "Payments Platform", "PaymentGateway"],
+      "graph_entities": ["PaymentGateway", "Alice Chen"]
+    },
+    {
+      "id": "q02",
+      "question": "What applications depend on OrderService and could be impacted?",
+      "preferred_route": "graph",
+      "must_include": ["CustomerPortal", "MobileBackend"],
+      "graph_entities": ["OrderService"]
+    },
+    {
+      "id": "q03",
+      "question": "What is the blast radius if AuthService fails?",
+      "preferred_route": "graph",
+      "must_include": ["AuthService"],
+      "graph_entities": ["AuthService"]
+    },
+    {
+      "id": "q04",
+      "question": "Are there any in-progress changes affecting PaymentGateway?",
+      "preferred_route": "graph",
+      "must_include": ["CR-10482", "TLS"],
+      "graph_entities": ["CR-10482", "PaymentGateway"]
+    },
+    {
+      "id": "q05",
+      "question": "Which change ticket should I use to acknowledge the AuthService migration incident?",
+      "preferred_route": "graph",
+      "must_include": ["CR-10477", "OPS-8875"],
+      "graph_entities": ["CR-10477"]
+    },
+    {
+      "id": "q06",
+      "question": "What fields are required in an SME L2 escalation report?",
+      "preferred_route": "vector",
+      "must_include": ["timeline", "blast_radius", "change"],
+      "graph_entities": []
+    },
+    {
+      "id": "q07",
+      "question": "Describe the Ops Center L1 triage checklist.",
+      "preferred_route": "vector",
+      "must_include": ["CMDB", "15 minutes"],
+      "graph_entities": []
+    },
+    {
+      "id": "q08",
+      "question": "How do I acknowledge a change that correlates with an incident?",
+      "preferred_route": "vector",
+      "must_include": ["ack ticket", "CR-"],
+      "graph_entities": []
+    },
+    {
+      "id": "q09",
+      "question": "Who owns BillingEngine and what does it depend on?",
+      "preferred_route": "graph",
+      "must_include": ["BillingEngine", "PaymentGateway"],
+      "graph_entities": ["BillingEngine"]
+    },
+    {
+      "id": "q10",
+      "question": "PaymentGateway incident — give contacts, dependencies, and any active change with ack steps.",
+      "preferred_route": "hybrid",
+      "must_include": ["Alice Chen", "CR-10482", "ack"],
+      "graph_entities": ["PaymentGateway", "CR-10482"]
+    },
+    {
+      "id": "q11",
+      "question": "What escalation SLA applies at level 2?",
+      "preferred_route": "graph",
+      "must_include": ["30", "SME"],
+      "graph_entities": ["EscalationLevel"]
+    },
+    {
+      "id": "q12",
+      "question": "PaymentGateway returns 502 during cert rotation — what mitigation does the runbook recommend?",
+      "preferred_route": "vector",
+      "must_include": ["DR-12", "secondary region"],
+      "graph_entities": []
+    },
+    {
+      "id": "q13",
+      "question": "What is the pricing model for our SaaS product?",
+      "preferred_route": "auto",
+      "must_include": [],
+      "expect_refusal": true,
+      "graph_entities": []
+    }
+  ]
+}
