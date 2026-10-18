@@ -13,25 +13,165 @@ Enterprise command center with hundreds of applications. Ops needs:
 
 Traditional vector RAG misses relationship questions (“who owns X and what depends on it?”). **GraphRAG** (Neo4j + Cypher) handles structure; **vector RAG** (Chroma) handles unstructured runbook text. LangGraph orchestrates routing, retrieval, and grounded answers.
 
-## Architecture
+## High-level design
 
+### System context
+
+Ops Center engineers use a **web chat** during incidents. Questions mix **relationship facts** (ownership, dependencies, changes, escalation contacts) and **procedural text** (runbooks, SME report templates). The system answers from an **organizational knowledge graph** plus a **runbook vector index**, grounded by a **local or cloud LLM**.
+
+### Logical architecture
+
+```mermaid
+flowchart TB
+  subgraph users [Users]
+    Ops[Ops Center engineers]
+  end
+
+  subgraph ec2_app [EC2 — Application stack Docker Compose]
+    UI[React UI :5173]
+    NGINX[nginx /api proxy]
+    API[FastAPI + LangGraph]
+    N4J[(Neo4j 5 — graph)]
+    CH[(Chroma — vectors)]
+  end
+
+  subgraph ec2_llm [EC2 — Optional separate host]
+    OLL[Ollama :11434]
+    M1[llama3.2:3b chat]
+    M2[nomic-embed-text]
+    OLL --> M1
+    OLL --> M2
+  end
+
+  Ops --> UI
+  UI --> NGINX
+  NGINX --> API
+  API --> N4J
+  API --> CH
+  API -->|chat + embed HTTP| OLL
 ```
-┌─────────────┐     JWT      ┌──────────────────┐     LangGraph    ┌─────────┐
-│  React UI   │ ──────────► │  FastAPI backend │ ───────────────► │ OpenAI  │
-└─────────────┘              └────────┬─────────┘                  └─────────┘
-                                      │
-                         ┌────────────┼────────────┐
-                         ▼            ▼            ▼
-                    Neo4j graph   Chroma vectors   Golden eval
+
+| Component | Responsibility |
+|-----------|----------------|
+| **React UI** | Login, chat, mode selector (`auto` / `graph` / `vector`) |
+| **nginx (frontend container)** | Static UI; reverse-proxy `/api` → FastAPI |
+| **FastAPI** | JWT auth, `/query`, health |
+| **LangGraph agent** | Route → graph retrieve → vector retrieve → generate |
+| **Neo4j** | 100 apps, stakeholders, dependencies, changes, escalation ladder |
+| **Chroma** | Embedded runbook chunks from `data/runbooks/` |
+| **Ollama (optional)** | Local LLM + embeddings on same or separate EC2 ([docs/ollama-ec2.md](docs/ollama-ec2.md)) |
+| **OpenAI (optional)** | Cloud LLM/embeddings via `LLM_PROVIDER=openai` |
+
+### Query pipeline (LangGraph)
+
+```mermaid
+sequenceDiagram
+  participant U as User
+  participant API as FastAPI
+  participant G as LangGraph
+  participant N as Neo4j
+  participant C as Chroma
+  participant L as LLM Ollama or OpenAI
+
+  U->>API: POST /query JWT + question + mode
+  API->>G: invoke agent
+  G->>G: classify route auto graph vector hybrid
+  G->>N: Cypher context app contacts deps changes
+  G->>C: similarity search runbooks
+  G->>L: system prompt + graph + vector context
+  L-->>G: grounded answer
+  G-->>API: answer route citations
+  API-->>U: JSON response
 ```
+
+1. **Classify** — Heuristics (or forced mode) pick `graph`, `vector`, or `hybrid`.  
+2. **Graph retrieve** — App name detection → ownership, SME/Eng Mgr/PM/Director, `DEPENDS_ON`, active `ChangeRequest`.  
+3. **Vector retrieve** — Top-k chunks from Chroma (troubleshooting, L1/L2 procedures).  
+4. **Generate** — LLM must cite `[Graph]` / `[Vector]`; refuse if context is insufficient.
+
+### Graph data model (Neo4j)
+
+| Node | Key properties |
+|------|----------------|
+| `Application` | `name`, `description`, `domain`, `tier`, `criticality` |
+| `Person` | `name`, `email`, `role`, `title` |
+| `Team` | `name` (domain / owning team) |
+| `ChangeRequest` | `id`, `title`, `status`, `ack_ticket`, … |
+| `EscalationLevel` | `level`, `sla_minutes`, `required_fields` |
+
+| Relationship | Meaning |
+|--------------|---------|
+| `(Team)-[:OWNS]->(Application)` | Owning org |
+| `(Person)-[:SME_FOR\|ENG_MANAGER_FOR\|PRODUCT_MANAGER_FOR\|DIRECTOR_FOR]->(Application)` | Stakeholder map |
+| `(Application)-[:DEPENDS_ON]->(Application)` | Blast radius |
+| `(ChangeRequest)-[:AFFECTS]->(Application)` | In-flight change correlation |
+| `(Person)-[:PRIMARY_CONTACT_FOR]->(Application)` | Ops on-call overlay |
+
+**Source of truth:** `data/graph/applications_catalog.json` (100 apps) + CSV export → loaded by `python -m app.scripts.seed_all`.
+
+### Vector corpus & ingestion
+
+| Stage | Implementation |
+|-------|----------------|
+| Corpus | Markdown runbooks under `data/runbooks/` |
+| Load | YAML front matter → metadata (`application`, `title`) |
+| Chunk | Heading-aware splitter (~600 chars) |
+| Embed | Ollama `nomic-embed-text` or OpenAI `text-embedding-3-small` |
+| Store | Chroma collection `ops_runbooks` (Docker volume `chroma_data`) |
+| Refresh | `python -m app.scripts.ingest_runbooks` or `seed_all` |
+
+Details: [docs/ingestion.md](docs/ingestion.md).
+
+### Security & access
+
+- **Authentication** — JWT after login; 5 demo ops users (`backend/app/auth.py`).  
+- **Network** — Public: **5173** (UI) only; Neo4j **7474/7687** private; Ollama **11434** VPC-only if remote.  
+- **Grounding** — System prompt restricts answers to retrieved context.
+
+### Deployment topology (reference)
+
+Typical course / lab layout:
+
+| Host | Role | Services |
+|------|------|----------|
+| `10.135.128.5` (example) | App stack | `docker compose`: frontend, api, neo4j |
+| `10.135.128.9` (example) | LLM | `systemd` Ollama: `llama3.2:3b`, `nomic-embed-text` |
+
+`backend/.env` on the app host:
+
+```env
+LLM_PROVIDER=ollama
+EMBEDDING_PROVIDER=ollama
+OLLAMA_BASE_URL=http://10.135.128.9:11434
+```
+
+After code changes: **`docker compose build --no-cache api`** (not only `up --force-recreate`).
+
+### Repository map
+
+| Path | Purpose |
+|------|---------|
+| `frontend/` | React chat UI |
+| `backend/app/rag/graph_agent.py` | LangGraph workflow |
+| `backend/app/graph/` | Neo4j client, retriever, catalog seed |
+| `backend/app/ingestion/` | Runbook → Chroma pipeline |
+| `data/graph/` | 100-app JSON + CSV reference |
+| `data/runbooks/` | Troubleshooting markdown |
+| `eval/golden_dataset.json` | Graph vs vector eval cases |
+| `docs/ec2-deploy.md` | Amazon Linux 2023 deploy |
+| `docs/ollama-ec2.md` | Ollama + Docker wiring |
+
+### Technology stack
 
 | Layer | Choice |
 |-------|--------|
-| Graph | Neo4j — **100 applications** + SME / Eng Mgr / PM / Director mapping (`data/graph/`) |
-| Vector | Chroma — chunked runbooks / escalation templates |
-| Orchestration | LangChain + LangGraph (route → retrieve → generate) |
-| Auth | JWT + bcrypt; 5 seeded ops users |
-| Deploy | Docker Compose on EC2 |
+| Graph | Neo4j 5 Community |
+| Vector | Chroma (persisted) |
+| Orchestration | LangChain + LangGraph |
+| API | FastAPI + uvicorn |
+| UI | React + Vite + nginx |
+| LLM / embeddings | Ollama (default lab) or OpenAI |
+| Deploy | Docker Compose on Amazon Linux 2023 |
 
 ## Quick start (local)
 
@@ -131,7 +271,8 @@ This project runs **Neo4j 5 Community in Docker** via `docker-compose.yml` (same
 | Port | Expose to internet? | Purpose |
 |------|---------------------|---------|
 | 22 | Your IP only | SSH |
-| 80 or 443 | Your IP / VPN / `0.0.0.0/0` if public demo | Frontend |
+| **5173** | Your IP / VPN | **Web UI** (React; nginx in frontend container) |
+| 8000 | Optional | API (UI uses `/api` proxy; keep private if possible) |
 | 7474 | **No** | Neo4j Browser — use SSH tunnel |
 | 7687 | **No** | Bolt — only API container needs this on the Docker network |
 
@@ -261,7 +402,7 @@ curl -s http://localhost:8000/health
 curl -s http://localhost:5173/ | head
 ```
 
-Log in via the UI with `ops.alice` / `OpsCenter2026!` and ask a **graph** question, e.g. “Who owns PaymentGateway and what depends on it?”
+Open **http://&lt;EC2-public-ip&gt;:5173** — log in as `ops.alice` / `OpsCenter2026!` and ask a **graph** question, e.g. “Who owns PaymentGateway and what depends on it?”
 
 ## Project submission checklist
 
