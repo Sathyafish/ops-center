@@ -39,7 +39,11 @@ def main() -> None:
         default=Path("/eval/golden_dataset.json"),
     )
     parser.add_argument("--report", type=Path, default=Path("eval_report.json"))
-    parser.add_argument("--with-llm", action="store_true", help="Also run full GraphRAG answers (uses OpenAI)")
+    parser.add_argument(
+        "--with-llm",
+        action="store_true",
+        help="Also run full GraphRAG answers (uses configured LLM: Ollama or OpenAI)",
+    )
     args = parser.parse_args()
 
     if not args.dataset.exists():

@@ -404,6 +404,10 @@ curl -s http://localhost:5173/ | head
 
 Open **http://&lt;EC2-public-ip&gt;:5173** — log in as `ops.alice` / `OpsCenter2026!` and ask a **graph** question, e.g. “Who owns PaymentGateway and what depends on it?”
 
+## Project document (submission write-up)
+
+Full narrative: **ingestion (graph + vector)**, **prompt/runtime flow**, and **evaluation** — [docs/PROJECT_DOCUMENT.md](docs/PROJECT_DOCUMENT.md).
+
 ## Project submission checklist
 
 - [ ] Demo video (≤5 min): login → incident query → contacts + dependencies → change correlation  

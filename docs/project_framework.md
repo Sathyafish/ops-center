@@ -7,12 +7,12 @@ My RAG app helps **Ops Center engineers** answer **incident contact, dependency 
 | Field | Answer |
 |-------|--------|
 | **Use case** | Live incident triage in enterprise command center; compound questions needing people + deps + changes + procedures. |
-| **Corpus** | Neo4j org graph (15 apps, teams, people, CRs) + **Markdown runbooks** in `data/runbooks/` (L1 triage, SME template, per-app troubleshooting); English. |
+| **Corpus** | Neo4j org graph (**100 apps**, teams, people, CRs) + **Markdown runbooks** in `data/runbooks/`; English. |
 | **Ingestion + cleaning** | `app.ingestion`: load `.md`, YAML front matter → metadata, strip comments/blank lines, chunk, embed, rebuild Chroma via `ingest_runbooks`. |
 | **Freshness** | Re-run ingest after runbook edits; graph re-seed via `seed_all`; prod would sync CMDB + Confluence nightly (SLA 24h). |
 | **Chunking + embedding** | 600-char recursive chunks, 80 overlap; `text-embedding-3-small` for runbooks. |
 | **Retrieve** | Graph: Cypher templates keyed by app name + intent; Vector: Chroma top-4; LangGraph routes auto/graph/vector/hybrid. |
-| **Generation** | `gpt-4o-mini`, grounded system prompt, refusal if context empty. |
+| **Generation** | Ollama `llama3.2:3b` or OpenAI; grounded system prompt, refusal if context empty. |
 | **Eval** | 12 golden cases; keyword overlap on retrieval + optional LLM answer scoring; Graph vs vector win counts. |
 | **Auth** | JWT; 5 ops users for demo. |
 | **Surface** | React chat UI → FastAPI → LangGraph. |
