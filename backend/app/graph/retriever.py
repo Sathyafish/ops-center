@@ -3,34 +3,31 @@
 import re
 from typing import Any
 
+from app.graph.application_catalog import application_names
 from app.graph.neo4j_client import run_query
 
 APP_PATTERN = re.compile(r"\b([A-Z][A-Za-z0-9-]{2,})\b")
 
+_APP_NAMES_CACHE: list[str] | None = None
+
+
+def _all_app_names() -> list[str]:
+    global _APP_NAMES_CACHE
+    if _APP_NAMES_CACHE is None:
+        try:
+            _APP_NAMES_CACHE = sorted(application_names(), key=len, reverse=True)
+        except Exception:
+            _APP_NAMES_CACHE = []
+    return _APP_NAMES_CACHE
+
 
 def extract_app_name(question: str) -> str | None:
-    """Heuristic: known app tokens in seed data or Title-Case tokens."""
-    known = {
-        "PaymentGateway",
-        "OrderService",
-        "InventoryAPI",
-        "CustomerPortal",
-        "AuthService",
-        "NotificationHub",
-        "BillingEngine",
-        "DataWarehouse",
-        "CRMConnector",
-        "ShippingTracker",
-        "FraudDetection",
-        "MobileBackend",
-        "SearchIndex",
-        "LegacyMainframe",
-        "HRPortal",
-    }
-    upper_q = question
-    for name in known:
-        if name.lower() in upper_q.lower():
+    """Match longest application name appearing in the question (100-app catalog)."""
+    q_lower = question.lower()
+    for name in _all_app_names():
+        if name.lower() in q_lower:
             return name
+    known = set(_all_app_names())
     for match in APP_PATTERN.findall(question):
         if match in known:
             return match
@@ -45,28 +42,50 @@ def graph_context_for_question(question: str) -> tuple[str, list[dict[str, Any]]
 
     q_lower = question.lower()
     if app:
-        owners = run_query(
+        profile = run_query(
             """
-            MATCH (a:Application {name: $app})<-[:OWNS]-(t:Team)
-            OPTIONAL MATCH (p:Person)-[:MEMBER_OF]->(t)
-            OPTIONAL MATCH (p)-[:PRIMARY_CONTACT_FOR]->(a)
-            RETURN a.name AS app, a.tier AS tier, a.criticality AS criticality,
-                   t.name AS team, collect(DISTINCT p { .name, .email, .role, .on_call }) AS people
+            MATCH (a:Application {name: $app})
+            OPTIONAL MATCH (a)<-[:OWNS]-(t:Team)
+            OPTIONAL MATCH (sme:Person)-[:SME_FOR]->(a)
+            OPTIONAL MATCH (em:Person)-[:ENG_MANAGER_FOR]->(a)
+            OPTIONAL MATCH (pm:Person)-[:PRODUCT_MANAGER_FOR]->(a)
+            OPTIONAL MATCH (dir:Person)-[:DIRECTOR_FOR]->(a)
+            OPTIONAL MATCH (oncall:Person)-[:PRIMARY_CONTACT_FOR]->(a)
+            RETURN a.name AS app, a.description AS description, a.tier AS tier,
+                   a.criticality AS criticality, t.name AS team,
+                   sme { .name, .email, .title } AS sme,
+                   em { .name, .email, .title } AS eng_manager,
+                   pm { .name, .email, .title } AS product_manager,
+                   dir { .name, .email, .title } AS director,
+                   collect(DISTINCT oncall { .name, .email, .role, .on_call }) AS on_call_contacts
+            LIMIT 1
             """,
             {"app": app},
         )
-        if owners:
-            records.extend(owners)
-            o = owners[0]
+        if profile:
+            records.extend(profile)
+            o = profile[0]
+            desc = o.get("description") or ""
             blocks.append(
-                f"Application {o['app']} (tier {o['tier']}, criticality {o['criticality']}) "
-                f"owned by team {o['team']}."
+                f"Application {o['app']} (tier {o['tier']}, criticality {o['criticality']}) — {desc}"
             )
-            for person in o.get("people") or []:
+            if o.get("team"):
+                blocks.append(f"Owning team / domain: {o['team']}.")
+            for label, key in (
+                ("SME", "sme"),
+                ("Engineering Manager", "eng_manager"),
+                ("Product Manager", "product_manager"),
+                ("Director", "director"),
+            ):
+                person = o.get(key)
+                if person and person.get("name"):
+                    title = person.get("title") or label
+                    blocks.append(f"{label}: {person['name']} ({title}) — {person.get('email', '')}")
+            for person in o.get("on_call_contacts") or []:
                 if person.get("name"):
                     oc = " [ON-CALL]" if person.get("on_call") else ""
                     blocks.append(
-                        f"Contact: {person['name']} ({person.get('role', 'engineer')}) "
+                        f"Ops primary contact: {person['name']} ({person.get('role', 'engineer')}) "
                         f"{person.get('email', '')}{oc}"
                     )
 

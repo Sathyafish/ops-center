@@ -1,0 +1,3037 @@
+{
+  "version": "1.0",
+  "application_count": 100,
+  "applications": [
+    {
+      "name": "PaymentGateway",
+      "description": "Primary card and ACH payment authorization service for all digital channels.",
+      "domain": "Payments Platform",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Alice Chen",
+        "email": "alice.chen@enterprise.com",
+        "title": "SME"
+      },
+      "eng_manager": {
+        "name": "Frank Li",
+        "email": "frank.l@enterprise.com",
+        "title": "Engineering Manager"
+      },
+      "product_manager": {
+        "name": "Jordan Okonkwo",
+        "email": "jordan.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "OrderService",
+      "description": "Order capture, checkout orchestration, and order lifecycle API.",
+      "domain": "Commerce Core",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "PaymentGateway",
+        "AuthService",
+        "InventoryAPI"
+      ],
+      "sme": {
+        "name": "Bob Martinez",
+        "email": "bob.m@enterprise.com",
+        "title": "SME"
+      },
+      "eng_manager": {
+        "name": "Riley Martinez",
+        "email": "riley.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Okonkwo",
+        "email": "morgan.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "InventoryAPI",
+      "description": "Real-time stock reservations and SKU availability for commerce.",
+      "domain": "Commerce Core",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Chen",
+        "email": "morgan.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Martinez",
+        "email": "casey.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Okonkwo",
+        "email": "riley.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CustomerPortal",
+      "description": "Logged-in customer web experience for orders, profile, and support.",
+      "domain": "Customer Experience",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "OrderService",
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Grace Kim",
+        "email": "grace.k@enterprise.com",
+        "title": "SME"
+      },
+      "eng_manager": {
+        "name": "Taylor Martinez",
+        "email": "taylor.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Okonkwo",
+        "email": "casey.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "AuthService",
+      "description": "Enterprise SSO, session management, and OAuth token issuance.",
+      "domain": "Identity & Access",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "LegacyMainframe"
+      ],
+      "sme": {
+        "name": "Carol Okonkwo",
+        "email": "carol.o@enterprise.com",
+        "title": "SME"
+      },
+      "eng_manager": {
+        "name": "Jamie Martinez",
+        "email": "jamie.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Okonkwo",
+        "email": "taylor.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "NotificationHub",
+      "description": "Email, SMS, and push notification dispatch for transactional events.",
+      "domain": "Customer Experience",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Taylor Chen",
+        "email": "taylor.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Martinez",
+        "email": "quinn.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Okonkwo",
+        "email": "jamie.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "BillingEngine",
+      "description": "Subscription billing, invoicing, and revenue recognition batch jobs.",
+      "domain": "Payments Platform",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "PaymentGateway",
+        "LegacyMainframe"
+      ],
+      "sme": {
+        "name": "Jamie Chen",
+        "email": "jamie.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Martinez",
+        "email": "avery.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Okonkwo",
+        "email": "quinn.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "DataWarehouse",
+      "description": "Analytics warehouse ingesting operational feeds for BI and finance.",
+      "domain": "Data Platform",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "OrderService",
+        "BillingEngine"
+      ],
+      "sme": {
+        "name": "Dave Patel",
+        "email": "dave.p@enterprise.com",
+        "title": "SME"
+      },
+      "eng_manager": {
+        "name": "Blake Martinez",
+        "email": "blake.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Okonkwo",
+        "email": "avery.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CRMConnector",
+      "description": "Syncs customer profiles and cases with Salesforce CRM.",
+      "domain": "Customer Experience",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "CustomerPortal"
+      ],
+      "sme": {
+        "name": "Avery Chen",
+        "email": "avery.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Martinez",
+        "email": "cameron.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Okonkwo",
+        "email": "blake.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ShippingTracker",
+      "description": "Shipment status aggregation from carriers for post-purchase tracking.",
+      "domain": "Commerce Core",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "OrderService",
+        "InventoryAPI"
+      ],
+      "sme": {
+        "name": "Blake Chen",
+        "email": "blake.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Martinez",
+        "email": "drew.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Okonkwo",
+        "email": "cameron.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "FraudDetection",
+      "description": "Real-time scoring and rules engine for checkout fraud prevention.",
+      "domain": "Commerce Core",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "PaymentGateway",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Cameron Chen",
+        "email": "cameron.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Emerson Martinez",
+        "email": "emerson.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Drew Okonkwo",
+        "email": "drew.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "MobileBackend",
+      "description": "BFF API for iOS and Android retail applications.",
+      "domain": "Customer Experience",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "OrderService",
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Drew Chen",
+        "email": "drew.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Finley Martinez",
+        "email": "finley.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Emerson Okonkwo",
+        "email": "emerson.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SearchIndex",
+      "description": "Product catalog search indexing and query service.",
+      "domain": "Data Platform",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Emerson Chen",
+        "email": "emerson.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Harper Martinez",
+        "email": "harper.martinez.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Finley Okonkwo",
+        "email": "finley.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "LegacyMainframe",
+      "description": "COBOL host system for core ledger and legacy SSO bridge.",
+      "domain": "Data Platform",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [],
+      "sme": {
+        "name": "Finley Chen",
+        "email": "finley.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Alex Okonkwo",
+        "email": "alex.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Harper Okonkwo",
+        "email": "harper.okonkwo.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "HRPortal",
+      "description": "Employee self-service HR, benefits, and org directory.",
+      "domain": "Ops Center",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Harper Chen",
+        "email": "harper.chen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jordan Okonkwo",
+        "email": "jordan.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Alex Patel",
+        "email": "alex.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Kevin Singh",
+        "email": "kevin.singh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "APWorker",
+      "description": "APWorker supports finance systems capabilities including ap workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Alex Martinez",
+        "email": "alex.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Morgan Okonkwo",
+        "email": "morgan.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jordan Patel",
+        "email": "jordan.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "TMSWorker",
+      "description": "TMSWorker supports supply chain capabilities including tms workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Jordan Martinez",
+        "email": "jordan.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Riley Okonkwo",
+        "email": "riley.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Patel",
+        "email": "morgan.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "VulnScanWorker",
+      "description": "VulnScanWorker supports security operations capabilities including vulnscan workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Martinez",
+        "email": "morgan.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Okonkwo",
+        "email": "casey.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Patel",
+        "email": "riley.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "EventBusGateway",
+      "description": "EventBusGateway supports integration hub capabilities including eventbus workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Riley Martinez",
+        "email": "riley.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Taylor Okonkwo",
+        "email": "taylor.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Patel",
+        "email": "casey.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "AttributionGateway",
+      "description": "AttributionGateway supports marketing tech capabilities including attribution workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Casey Martinez",
+        "email": "casey.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jamie Okonkwo",
+        "email": "jamie.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Patel",
+        "email": "taylor.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "DisputeGateway",
+      "description": "DisputeGateway supports payments platform capabilities including dispute workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Taylor Martinez",
+        "email": "taylor.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Okonkwo",
+        "email": "quinn.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Patel",
+        "email": "jamie.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PromotionPlatform",
+      "description": "PromotionPlatform supports commerce core capabilities including promotion workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Jamie Martinez",
+        "email": "jamie.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Okonkwo",
+        "email": "avery.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Patel",
+        "email": "quinn.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ProvisioningPlatform",
+      "description": "ProvisioningPlatform supports identity & access capabilities including provisioning workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Quinn Martinez",
+        "email": "quinn.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Blake Okonkwo",
+        "email": "blake.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Patel",
+        "email": "avery.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "MetricsPlatform",
+      "description": "MetricsPlatform supports data platform capabilities including metrics workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Avery Martinez",
+        "email": "avery.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Okonkwo",
+        "email": "cameron.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Patel",
+        "email": "blake.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "LoyaltySync",
+      "description": "LoyaltySync supports customer experience capabilities including loyalty workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Blake Martinez",
+        "email": "blake.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Okonkwo",
+        "email": "drew.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Patel",
+        "email": "cameron.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ARSync",
+      "description": "ARSync supports finance systems capabilities including ar workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Cameron Martinez",
+        "email": "cameron.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Emerson Okonkwo",
+        "email": "emerson.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Drew Patel",
+        "email": "drew.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "VendorSync",
+      "description": "VendorSync supports supply chain capabilities including vendor workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Drew Martinez",
+        "email": "drew.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Finley Okonkwo",
+        "email": "finley.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Emerson Patel",
+        "email": "emerson.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "GRCBridge",
+      "description": "GRCBridge supports security operations capabilities including grc workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Emerson Martinez",
+        "email": "emerson.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Harper Okonkwo",
+        "email": "harper.okonkwo.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Finley Patel",
+        "email": "finley.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "APIGatewayBridge",
+      "description": "APIGatewayBridge supports integration hub capabilities including apigateway workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Finley Martinez",
+        "email": "finley.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Alex Patel",
+        "email": "alex.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Harper Patel",
+        "email": "harper.patel.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SegmentBridge",
+      "description": "SegmentBridge supports marketing tech capabilities including segment workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Harper Martinez",
+        "email": "harper.martinez.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jordan Patel",
+        "email": "jordan.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Alex Nguyen",
+        "email": "alex.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "RefundService",
+      "description": "RefundService supports payments platform capabilities including refund workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Alex Okonkwo",
+        "email": "alex.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Morgan Patel",
+        "email": "morgan.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jordan Nguyen",
+        "email": "jordan.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CartService",
+      "description": "CartService supports commerce core capabilities including cart workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Jordan Okonkwo",
+        "email": "jordan.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Riley Patel",
+        "email": "riley.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Nguyen",
+        "email": "morgan.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SecretsService",
+      "description": "SecretsService supports identity & access capabilities including secrets workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Okonkwo",
+        "email": "morgan.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Patel",
+        "email": "casey.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Nguyen",
+        "email": "riley.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "FeatureStoreAPI",
+      "description": "FeatureStoreAPI supports data platform capabilities including featurestore workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Riley Okonkwo",
+        "email": "riley.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Taylor Patel",
+        "email": "taylor.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Nguyen",
+        "email": "casey.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "RecommendationsAPI",
+      "description": "RecommendationsAPI supports customer experience capabilities including recommendations workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Casey Okonkwo",
+        "email": "casey.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jamie Patel",
+        "email": "jamie.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Nguyen",
+        "email": "taylor.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "TaxAPI",
+      "description": "TaxAPI supports finance systems capabilities including tax workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Taylor Okonkwo",
+        "email": "taylor.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Patel",
+        "email": "quinn.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Nguyen",
+        "email": "jamie.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ProcurementPortal",
+      "description": "ProcurementPortal supports supply chain capabilities including procurement workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Jamie Okonkwo",
+        "email": "jamie.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Patel",
+        "email": "avery.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Nguyen",
+        "email": "quinn.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "DLPPortal",
+      "description": "DLPPortal supports security operations capabilities including dlp workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Quinn Okonkwo",
+        "email": "quinn.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Blake Patel",
+        "email": "blake.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Nguyen",
+        "email": "avery.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "FileTransferPortal",
+      "description": "FileTransferPortal supports integration hub capabilities including filetransfer workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Avery Okonkwo",
+        "email": "avery.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Patel",
+        "email": "cameron.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Nguyen",
+        "email": "blake.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "EmailPrefHub",
+      "description": "EmailPrefHub supports marketing tech capabilities including emailpref workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Blake Okonkwo",
+        "email": "blake.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Patel",
+        "email": "drew.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Nguyen",
+        "email": "cameron.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "WalletHub",
+      "description": "WalletHub supports payments platform capabilities including wallet workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Cameron Okonkwo",
+        "email": "cameron.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Emerson Patel",
+        "email": "emerson.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Drew Nguyen",
+        "email": "drew.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CheckoutHub",
+      "description": "CheckoutHub supports commerce core capabilities including checkout workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Drew Okonkwo",
+        "email": "drew.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Finley Patel",
+        "email": "finley.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Emerson Nguyen",
+        "email": "emerson.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CertificateEngine",
+      "description": "CertificateEngine supports identity & access capabilities including certificate workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Emerson Okonkwo",
+        "email": "emerson.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Harper Patel",
+        "email": "harper.patel.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Finley Nguyen",
+        "email": "finley.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "MDMEngine",
+      "description": "MDMEngine supports data platform capabilities including mdm workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Finley Okonkwo",
+        "email": "finley.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Alex Nguyen",
+        "email": "alex.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Harper Nguyen",
+        "email": "harper.nguyen.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ContentEngine",
+      "description": "ContentEngine supports customer experience capabilities including content workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Harper Okonkwo",
+        "email": "harper.okonkwo.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jordan Nguyen",
+        "email": "jordan.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Alex Li",
+        "email": "alex.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PayrollWorker",
+      "description": "PayrollWorker supports finance systems capabilities including payroll workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Alex Patel",
+        "email": "alex.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Morgan Nguyen",
+        "email": "morgan.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jordan Li",
+        "email": "jordan.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ForecastWorker",
+      "description": "ForecastWorker supports supply chain capabilities including forecast workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Jordan Patel",
+        "email": "jordan.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Riley Nguyen",
+        "email": "riley.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Li",
+        "email": "morgan.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SOARWorker",
+      "description": "SOARWorker supports security operations capabilities including soar workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Patel",
+        "email": "morgan.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Nguyen",
+        "email": "casey.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Li",
+        "email": "riley.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "WebhookGateway",
+      "description": "WebhookGateway supports integration hub capabilities including webhook workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Riley Patel",
+        "email": "riley.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Taylor Nguyen",
+        "email": "taylor.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Li",
+        "email": "casey.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "AdSyncGateway",
+      "description": "AdSyncGateway supports marketing tech capabilities including adsync workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Casey Patel",
+        "email": "casey.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jamie Nguyen",
+        "email": "jamie.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Li",
+        "email": "taylor.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "TreasuryGateway",
+      "description": "TreasuryGateway supports payments platform capabilities including treasury workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Taylor Patel",
+        "email": "taylor.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Nguyen",
+        "email": "quinn.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Li",
+        "email": "jamie.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ReturnsPlatform",
+      "description": "ReturnsPlatform supports commerce core capabilities including returns workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Jamie Patel",
+        "email": "jamie.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Nguyen",
+        "email": "avery.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Li",
+        "email": "quinn.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PolicyPlatform",
+      "description": "PolicyPlatform supports identity & access capabilities including policy workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Quinn Patel",
+        "email": "quinn.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Blake Nguyen",
+        "email": "blake.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Li",
+        "email": "avery.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ArchivePlatform",
+      "description": "ArchivePlatform supports data platform capabilities including archive workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Avery Patel",
+        "email": "avery.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Nguyen",
+        "email": "cameron.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Li",
+        "email": "blake.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PersonalizationSync",
+      "description": "PersonalizationSync supports customer experience capabilities including personalization workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Blake Patel",
+        "email": "blake.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Nguyen",
+        "email": "drew.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Li",
+        "email": "cameron.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ExpenseSync",
+      "description": "ExpenseSync supports finance systems capabilities including expense workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Cameron Patel",
+        "email": "cameron.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Emerson Nguyen",
+        "email": "emerson.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Drew Li",
+        "email": "drew.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "AllocationSync",
+      "description": "AllocationSync supports supply chain capabilities including allocation workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Drew Patel",
+        "email": "drew.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Finley Nguyen",
+        "email": "finley.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Emerson Li",
+        "email": "emerson.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PKIBridge",
+      "description": "PKIBridge supports security operations capabilities including pki workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Emerson Patel",
+        "email": "emerson.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Harper Nguyen",
+        "email": "harper.nguyen.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Finley Li",
+        "email": "finley.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SchemaRegistryBridge",
+      "description": "SchemaRegistryBridge supports integration hub capabilities including schemaregistry workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Finley Patel",
+        "email": "finley.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Alex Li",
+        "email": "alex.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Harper Li",
+        "email": "harper.li.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "LeadRouterBridge",
+      "description": "LeadRouterBridge supports marketing tech capabilities including leadrouter workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Harper Patel",
+        "email": "harper.patel.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jordan Li",
+        "email": "jordan.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Alex Kim",
+        "email": "alex.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SettlementService",
+      "description": "SettlementService supports payments platform capabilities including settlement workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Alex Nguyen",
+        "email": "alex.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Morgan Li",
+        "email": "morgan.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jordan Kim",
+        "email": "jordan.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CatalogService",
+      "description": "CatalogService supports commerce core capabilities including catalog workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Jordan Nguyen",
+        "email": "jordan.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Riley Li",
+        "email": "riley.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Kim",
+        "email": "morgan.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "MFAService",
+      "description": "MFAService supports identity & access capabilities including mfa workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Nguyen",
+        "email": "morgan.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Li",
+        "email": "casey.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Kim",
+        "email": "riley.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PipelineAPI",
+      "description": "PipelineAPI supports data platform capabilities including pipeline workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Riley Nguyen",
+        "email": "riley.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Taylor Li",
+        "email": "taylor.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Kim",
+        "email": "casey.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ChatbotAPI",
+      "description": "ChatbotAPI supports customer experience capabilities including chatbot workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Casey Nguyen",
+        "email": "casey.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jamie Li",
+        "email": "jamie.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Kim",
+        "email": "taylor.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "GLAPI",
+      "description": "GLAPI supports finance systems capabilities including gl workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Taylor Nguyen",
+        "email": "taylor.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Li",
+        "email": "quinn.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Kim",
+        "email": "jamie.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "WMSPortal",
+      "description": "WMSPortal supports supply chain capabilities including wms workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Jamie Nguyen",
+        "email": "jamie.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Li",
+        "email": "avery.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Kim",
+        "email": "quinn.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SIEMPortal",
+      "description": "SIEMPortal supports security operations capabilities including siem workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Quinn Nguyen",
+        "email": "quinn.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Blake Li",
+        "email": "blake.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Kim",
+        "email": "avery.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ESBPortal",
+      "description": "ESBPortal supports integration hub capabilities including esb workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Avery Nguyen",
+        "email": "avery.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Li",
+        "email": "cameron.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Kim",
+        "email": "blake.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CampaignHub",
+      "description": "CampaignHub supports marketing tech capabilities including campaign workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Blake Nguyen",
+        "email": "blake.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Li",
+        "email": "drew.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Kim",
+        "email": "cameron.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ReconciliationHub",
+      "description": "ReconciliationHub supports payments platform capabilities including reconciliation workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Cameron Nguyen",
+        "email": "cameron.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Emerson Li",
+        "email": "emerson.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Drew Kim",
+        "email": "drew.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PricingHub",
+      "description": "PricingHub supports commerce core capabilities including pricing workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Drew Nguyen",
+        "email": "drew.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Finley Li",
+        "email": "finley.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Emerson Kim",
+        "email": "emerson.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "DirectoryEngine",
+      "description": "DirectoryEngine supports identity & access capabilities including directory workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Emerson Nguyen",
+        "email": "emerson.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Harper Li",
+        "email": "harper.li.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Finley Kim",
+        "email": "finley.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "LakehouseEngine",
+      "description": "LakehouseEngine supports data platform capabilities including lakehouse workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Finley Nguyen",
+        "email": "finley.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Alex Kim",
+        "email": "alex.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Harper Kim",
+        "email": "harper.kim.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SurveyEngine",
+      "description": "SurveyEngine supports customer experience capabilities including survey workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Harper Nguyen",
+        "email": "harper.nguyen.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jordan Kim",
+        "email": "jordan.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Alex Johnson",
+        "email": "alex.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "APWorker75",
+      "description": "APWorker75 supports finance systems capabilities including ap workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Alex Li",
+        "email": "alex.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Morgan Kim",
+        "email": "morgan.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jordan Johnson",
+        "email": "jordan.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "TMSWorker76",
+      "description": "TMSWorker76 supports supply chain capabilities including tms workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Jordan Li",
+        "email": "jordan.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Riley Kim",
+        "email": "riley.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Johnson",
+        "email": "morgan.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "VulnScanWorker77",
+      "description": "VulnScanWorker77 supports security operations capabilities including vulnscan workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Li",
+        "email": "morgan.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Kim",
+        "email": "casey.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Johnson",
+        "email": "riley.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "EventBusGateway78",
+      "description": "EventBusGateway78 supports integration hub capabilities including eventbus workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Riley Li",
+        "email": "riley.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Taylor Kim",
+        "email": "taylor.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Johnson",
+        "email": "casey.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "AttributionGateway79",
+      "description": "AttributionGateway79 supports marketing tech capabilities including attribution workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Casey Li",
+        "email": "casey.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jamie Kim",
+        "email": "jamie.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Johnson",
+        "email": "taylor.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "DisputeGateway80",
+      "description": "DisputeGateway80 supports payments platform capabilities including dispute workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Taylor Li",
+        "email": "taylor.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Kim",
+        "email": "quinn.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Johnson",
+        "email": "jamie.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "PromotionPlatform81",
+      "description": "PromotionPlatform81 supports commerce core capabilities including promotion workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Jamie Li",
+        "email": "jamie.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Kim",
+        "email": "avery.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Johnson",
+        "email": "quinn.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ProvisioningPlatform82",
+      "description": "ProvisioningPlatform82 supports identity & access capabilities including provisioning workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Quinn Li",
+        "email": "quinn.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Blake Kim",
+        "email": "blake.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Johnson",
+        "email": "avery.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "MetricsPlatform83",
+      "description": "MetricsPlatform83 supports data platform capabilities including metrics workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Avery Li",
+        "email": "avery.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Kim",
+        "email": "cameron.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Johnson",
+        "email": "blake.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "LoyaltySync84",
+      "description": "LoyaltySync84 supports customer experience capabilities including loyalty workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Blake Li",
+        "email": "blake.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Kim",
+        "email": "drew.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Johnson",
+        "email": "cameron.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ARSync85",
+      "description": "ARSync85 supports finance systems capabilities including ar workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Cameron Li",
+        "email": "cameron.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Emerson Kim",
+        "email": "emerson.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Drew Johnson",
+        "email": "drew.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "VendorSync86",
+      "description": "VendorSync86 supports supply chain capabilities including vendor workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Drew Li",
+        "email": "drew.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Finley Kim",
+        "email": "finley.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Emerson Johnson",
+        "email": "emerson.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "GRCBridge87",
+      "description": "GRCBridge87 supports security operations capabilities including grc workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Emerson Li",
+        "email": "emerson.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Harper Kim",
+        "email": "harper.kim.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Finley Johnson",
+        "email": "finley.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "APIGatewayBridge88",
+      "description": "APIGatewayBridge88 supports integration hub capabilities including apigateway workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Finley Li",
+        "email": "finley.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Alex Johnson",
+        "email": "alex.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Harper Johnson",
+        "email": "harper.johnson.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SegmentBridge89",
+      "description": "SegmentBridge89 supports marketing tech capabilities including segment workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Harper Li",
+        "email": "harper.li.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jordan Johnson",
+        "email": "jordan.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Alex Williams",
+        "email": "alex.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "RefundService90",
+      "description": "RefundService90 supports payments platform capabilities including refund workflows for internal and customer-facing operations.",
+      "domain": "Payments Platform",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Alex Kim",
+        "email": "alex.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Morgan Johnson",
+        "email": "morgan.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jordan Williams",
+        "email": "jordan.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "CartService91",
+      "description": "CartService91 supports commerce core capabilities including cart workflows for internal and customer-facing operations.",
+      "domain": "Commerce Core",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "OrderService"
+      ],
+      "sme": {
+        "name": "Jordan Kim",
+        "email": "jordan.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Riley Johnson",
+        "email": "riley.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Morgan Williams",
+        "email": "morgan.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "SecretsService92",
+      "description": "SecretsService92 supports identity & access capabilities including secrets workflows for internal and customer-facing operations.",
+      "domain": "Identity & Access",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Morgan Kim",
+        "email": "morgan.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Casey Johnson",
+        "email": "casey.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Riley Williams",
+        "email": "riley.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "FeatureStoreAPI93",
+      "description": "FeatureStoreAPI93 supports data platform capabilities including featurestore workflows for internal and customer-facing operations.",
+      "domain": "Data Platform",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Riley Kim",
+        "email": "riley.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Taylor Johnson",
+        "email": "taylor.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Casey Williams",
+        "email": "casey.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "George Walsh",
+        "email": "george.walsh@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "RecommendationsAPI94",
+      "description": "RecommendationsAPI94 supports customer experience capabilities including recommendations workflows for internal and customer-facing operations.",
+      "domain": "Customer Experience",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Casey Kim",
+        "email": "casey.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Jamie Johnson",
+        "email": "jamie.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Taylor Williams",
+        "email": "taylor.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "TaxAPI95",
+      "description": "TaxAPI95 supports finance systems capabilities including tax workflows for internal and customer-facing operations.",
+      "domain": "Finance Systems",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService",
+        "PaymentGateway"
+      ],
+      "sme": {
+        "name": "Taylor Kim",
+        "email": "taylor.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Quinn Johnson",
+        "email": "quinn.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Jamie Williams",
+        "email": "jamie.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Diana Roth",
+        "email": "diana.roth@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "ProcurementPortal96",
+      "description": "ProcurementPortal96 supports supply chain capabilities including procurement workflows for internal and customer-facing operations.",
+      "domain": "Supply Chain",
+      "tier": "Tier-0",
+      "criticality": "critical",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Jamie Kim",
+        "email": "jamie.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Avery Johnson",
+        "email": "avery.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Quinn Williams",
+        "email": "quinn.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ethan Brooks",
+        "email": "ethan.brooks@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "DLPPortal97",
+      "description": "DLPPortal97 supports security operations capabilities including dlp workflows for internal and customer-facing operations.",
+      "domain": "Security Operations",
+      "tier": "Tier-1",
+      "criticality": "high",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Quinn Kim",
+        "email": "quinn.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Blake Johnson",
+        "email": "blake.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Avery Williams",
+        "email": "avery.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Fatima Hassan",
+        "email": "fatima.hassan@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "FileTransferPortal98",
+      "description": "FileTransferPortal98 supports integration hub capabilities including filetransfer workflows for internal and customer-facing operations.",
+      "domain": "Integration Hub",
+      "tier": "Tier-2",
+      "criticality": "medium",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Avery Kim",
+        "email": "avery.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Cameron Johnson",
+        "email": "cameron.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Blake Williams",
+        "email": "blake.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Ian Cooper",
+        "email": "ian.cooper@enterprise.com",
+        "title": "Director"
+      }
+    },
+    {
+      "name": "EmailPrefHub99",
+      "description": "EmailPrefHub99 supports marketing tech capabilities including emailpref workflows for internal and customer-facing operations.",
+      "domain": "Marketing Tech",
+      "tier": "Tier-3",
+      "criticality": "low",
+      "depends_on": [
+        "AuthService"
+      ],
+      "sme": {
+        "name": "Blake Kim",
+        "email": "blake.kim.sme@enterprise.com",
+        "title": "Sme"
+      },
+      "eng_manager": {
+        "name": "Drew Johnson",
+        "email": "drew.johnson.eng_mgr@enterprise.com",
+        "title": "Eng Mgr"
+      },
+      "product_manager": {
+        "name": "Cameron Williams",
+        "email": "cameron.williams.pm@enterprise.com",
+        "title": "Pm"
+      },
+      "director": {
+        "name": "Hannah Ortiz",
+        "email": "hannah.ortiz@enterprise.com",
+        "title": "Director"
+      }
+    }
+  ]
+}
