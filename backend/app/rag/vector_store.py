@@ -1,17 +1,13 @@
 from pathlib import Path
 
 import chromadb
-from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 from langchain_core.documents import Document
 
 from app.config import settings
+from app.rag.embeddings_factory import get_embeddings
 
 COLLECTION = "ops_runbooks"
-
-
-def get_embeddings() -> OpenAIEmbeddings:
-    return OpenAIEmbeddings(model=settings.embedding_model, api_key=settings.openai_api_key)
 
 
 def get_vector_store() -> Chroma:

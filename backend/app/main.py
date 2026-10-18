@@ -12,6 +12,12 @@ from app.rag.graph_agent import run_query as run_rag_query
 
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
+    from app.config import settings
+
+    print(
+        f"Ops Center API: llm={settings.llm_provider} embed={settings.embedding_provider} "
+        f"ollama={settings.ollama_base_url}"
+    )
     yield
     close_driver()
 
@@ -53,7 +59,14 @@ class QueryResponse(BaseModel):
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok"}
+    from app.config import settings
+
+    return {
+        "status": "ok",
+        "llm_provider": settings.llm_provider,
+        "embedding_provider": settings.embedding_provider,
+        "ollama_model": settings.ollama_model if settings.llm_provider == "ollama" else "",
+    }
 
 
 @app.post("/auth/login", response_model=LoginResponse)

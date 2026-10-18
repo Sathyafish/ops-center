@@ -9,6 +9,7 @@ python-multipart==0.0.20
 neo4j==5.26.0
 langchain==0.3.14
 langchain-openai==0.3.0
+langchain-ollama==0.2.2
 langchain-community==0.3.14
 langgraph==0.2.62
 chromadb==0.5.23

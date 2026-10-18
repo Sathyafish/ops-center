@@ -2,12 +2,12 @@
 
 from typing import Literal, TypedDict
 
-from langchain_openai import ChatOpenAI
 from langchain_core.messages import HumanMessage, SystemMessage
 from langgraph.graph import END, StateGraph
 
 from app.config import settings
 from app.graph.retriever import graph_context_for_question
+from app.rag.llm_factory import get_chat_llm, llm_is_configured
 from app.rag.vector_store import vector_retrieve
 
 SYSTEM_PROMPT = """You are Ops Center GraphRAG assistant for an enterprise command center.
@@ -31,10 +31,6 @@ class AgentState(TypedDict):
     graph_records: list
     vector_meta: list
     answer: str
-
-
-def _llm() -> ChatOpenAI:
-    return ChatOpenAI(model=settings.openai_model, api_key=settings.openai_api_key, temperature=0)
 
 
 def classify_route(state: AgentState) -> AgentState:
@@ -84,17 +80,24 @@ def generate(state: AgentState) -> AgentState:
     if route in ("vector", "hybrid"):
         sections.append("=== VECTOR CONTEXT ===\n" + (state.get("vector_context") or ""))
     context = "\n\n".join(sections)
+    max_chars = settings.llm_context_max_chars
+    if len(context) > max_chars:
+        context = context[:max_chars] + "\n\n[Context truncated for model limit.]"
     messages = [
         SystemMessage(content=SYSTEM_PROMPT),
         HumanMessage(content=f"Question: {state['question']}\n\nCONTEXT:\n{context}"),
     ]
-    if not settings.openai_api_key:
+    if not llm_is_configured():
         answer = (
-            f"(Demo mode — set OPENAI_API_KEY)\n\nRetrieved via **{route}**:\n\n{context[:3500]}"
+            f"(Demo mode — set LLM_PROVIDER=ollama or OPENAI_API_KEY)\n\n"
+            f"Retrieved via **{route}**:\n\n{context[:3500]}"
         )
         return {**state, "answer": answer}
-    response = _llm().invoke(messages)
-    return {**state, "answer": response.content}
+    response = get_chat_llm().invoke(messages)
+    content = response.content
+    if isinstance(content, list):
+        content = "".join(str(part) for part in content)
+    return {**state, "answer": str(content)}
 
 
 def build_graph():

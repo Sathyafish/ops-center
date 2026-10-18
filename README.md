@@ -38,7 +38,7 @@ Traditional vector RAG misses relationship questions (“who owns X and what dep
 ### Prerequisites
 
 - Docker & Docker Compose
-- OpenAI API key
+- **OpenAI API key**, or **Ollama** on the host ([docs/ollama-ec2.md](docs/ollama-ec2.md))
 
 ### Run
 

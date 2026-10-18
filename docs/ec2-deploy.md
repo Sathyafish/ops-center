@@ -48,6 +48,8 @@ docker compose exec api python -m app.scripts.seed_all
 
 Neo4j setup details (password sync, verify, backup, SSH tunnel): see **EC2 deployment** in [README.md](../README.md).
 
+**Local LLM (Ollama):** [ollama-ec2.md](ollama-ec2.md) — `llama3.2:3b` + `nomic-embed-text`, `LLM_PROVIDER=ollama` in `backend/.env`.
+
 ## TLS (recommended)
 
 Put **Caddy** or **nginx** on the host in front of `frontend:80`, terminate TLS with ACM or Let's Encrypt.
