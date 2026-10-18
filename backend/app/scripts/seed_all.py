@@ -32,6 +32,10 @@ def main() -> None:
     print(f"Applications loaded: {apps} (catalog size {app_count})")
     print(f"Total Neo4j nodes: {nodes}")
     print("Seeding vector store...")
+    from app.rag.embeddings_factory import _embedding_provider, get_embeddings
+
+    emb = get_embeddings()
+    print(f"Embedding provider={_embedding_provider()} class={type(emb).__name__}")
     chunks = seed_vectors()
     print(f"Chroma chunks indexed: {chunks}")
     print("Done.")

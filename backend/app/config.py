@@ -5,7 +5,11 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
     # LLM: openai | ollama
     llm_provider: str = "openai"
@@ -45,8 +49,16 @@ class Settings(BaseSettings):
         object.__setattr__(self, "llm_provider", self.llm_provider.strip().lower())
         object.__setattr__(self, "embedding_provider", self.embedding_provider.strip().lower())
         # Common misconfig: chat on Ollama but embeddings still defaulting to OpenAI
+        key = (self.openai_api_key or "").strip()
+        if key in ("", "sk-your-key", "sk-your-key-here"):
+            object.__setattr__(self, "openai_api_key", "")
         if self.llm_provider == "ollama" and self.embedding_provider == "openai":
             if not (self.openai_api_key or "").strip():
+                object.__setattr__(self, "embedding_provider", "ollama")
+        if (self.openai_api_key or "").strip() == "" and (self.ollama_base_url or "").strip():
+            if self.llm_provider != "ollama":
+                object.__setattr__(self, "llm_provider", "ollama")
+            if self.embedding_provider != "ollama":
                 object.__setattr__(self, "embedding_provider", "ollama")
         return self
 
