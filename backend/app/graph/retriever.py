@@ -175,20 +175,10 @@ def graph_context_for_question(question: str) -> tuple[str, list[dict[str, Any]]
                 )
 
     if not blocks:
-        summary = run_query(
-            """
-            MATCH (a:Application)
-            OPTIONAL MATCH (a)<-[:OWNS]-(t:Team)
-            RETURN a.name AS app, t.name AS team
-            ORDER BY a.name
-            LIMIT 8
-            """
-        )
-        records.extend(summary)
         blocks.append(
-            "Sample applications in graph: "
-            + "; ".join(f"{s['app']} → {s.get('team')}" for s in summary)
-            + ". Ask about a specific application by name."
+            "No matching application or ops topic in the graph for this question. "
+            "The knowledge base does not include an answer unless you name a CMDB application "
+            "(e.g. PaymentGateway) or ask about dependencies, contacts, or in-flight changes."
         )
 
     return "\n".join(blocks), records

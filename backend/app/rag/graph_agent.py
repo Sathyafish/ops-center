@@ -8,18 +8,24 @@ from langgraph.graph import END, StateGraph
 from app.config import settings
 from app.graph.retriever import graph_context_for_question
 from app.rag.llm_factory import get_chat_llm, llm_is_configured
+from app.rag.refusal import check_should_refuse
 from app.rag.vector_store import vector_retrieve
 
 SYSTEM_PROMPT = """You are Ops Center GraphRAG assistant for an enterprise command center.
-Answer ONLY using the provided CONTEXT sections. If context is insufficient, say you cannot find it in the knowledge base and suggest what to clarify (application name, change ID, etc.).
+Answer ONLY using the provided CONTEXT sections.
 
-Structure incident answers with:
+If the CONTEXT does not contain the answer, respond with exactly one short paragraph:
+"I could not find this in the ops knowledge base..." and suggest what to clarify.
+Do NOT invent incidents, pricing, outages, change requests, or contacts not present in CONTEXT.
+
+When the user asks about a real incident or application AND context supports it, you may structure the answer as:
 1. Primary contacts / on-call
 2. Dependency blast radius
 3. Escalation / SME report fields if relevant
 4. Related in-flight change requests and ack ticket if relevant
 
-Cite sources inline as [Graph] or [Vector:n]."""
+Do NOT use the incident report format for general business, pricing, or HR questions.
+Cite sources inline as [Graph] or [Vector:n] only when that information appears in CONTEXT."""
 
 
 class AgentState(TypedDict):
@@ -31,6 +37,7 @@ class AgentState(TypedDict):
     graph_records: list
     vector_meta: list
     answer: str
+    refused: bool
 
 
 def classify_route(state: AgentState) -> AgentState:
@@ -72,7 +79,20 @@ def retrieve_vector(state: AgentState) -> AgentState:
     return {**state, "vector_context": ctx, "vector_meta": meta}
 
 
+def guard_refusal(state: AgentState) -> AgentState:
+    refuse, message = check_should_refuse(
+        state["question"],
+        state.get("graph_context") or "",
+        state.get("vector_context") or "",
+    )
+    if refuse:
+        return {**state, "answer": message, "refused": True, "route": "refusal"}
+    return {**state, "refused": False}
+
+
 def generate(state: AgentState) -> AgentState:
+    if state.get("refused"):
+        return state
     route = state.get("route", "hybrid")
     sections: list[str] = []
     if route in ("graph", "hybrid"):
@@ -105,12 +125,14 @@ def build_graph():
     workflow.add_node("classify", classify_route)
     workflow.add_node("retrieve_graph", retrieve_graph)
     workflow.add_node("retrieve_vector", retrieve_vector)
+    workflow.add_node("guard_refusal", guard_refusal)
     workflow.add_node("generate", generate)
 
     workflow.set_entry_point("classify")
     workflow.add_edge("classify", "retrieve_graph")
     workflow.add_edge("retrieve_graph", "retrieve_vector")
-    workflow.add_edge("retrieve_vector", "generate")
+    workflow.add_edge("retrieve_vector", "guard_refusal")
+    workflow.add_edge("guard_refusal", "generate")
     workflow.add_edge("generate", END)
     return workflow.compile()
 
@@ -131,6 +153,7 @@ def run_query(question: str, mode: Literal["auto", "graph", "vector"] = "auto") 
         "graph_records": [],
         "vector_meta": [],
         "answer": "",
+        "refused": False,
     }
     final = _agent.invoke(initial)
     return {
